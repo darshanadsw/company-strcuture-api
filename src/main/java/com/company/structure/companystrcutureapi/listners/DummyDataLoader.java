@@ -89,8 +89,6 @@ public class DummyDataLoader implements ApplicationListener<ContextRefreshedEven
                employee.addManager(manager[0]);
            }
 
-
-
         });
 
     }

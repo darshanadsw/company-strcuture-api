@@ -117,4 +117,29 @@ class CompanyStrcutureApiApplicationTests {
         assertNotNull(projects);
     }
 
+    @Test
+    public void test_project_casting(){
+        String  q = "select p from Project p where type(p) = DesignProject " +
+            "and treat(p as DesignProject).developmentTechnology =:tech";
+        List<Project> p = em.createQuery(q)
+            .setParameter("tech","Java")
+            .getResultList();
+
+        assertNotNull(p);
+    }
+
+    @Test
+    public void test_project_name(){
+        String q = "SELECT NEW com.company.structure.companystrcutureapi.domain.dto.ProjectDTO (p.name, " +
+            "CASE TYPE(p)" +
+            "  WHEN DesignProject THEN 'ENG'" +
+            "  WHEN QualityProject THEN 'QA' " +
+            "  ELSE 'unknown' " +
+            "END ) " +
+            "FROM Project p WHERE TYPE(p) = QualityProject ";
+        List<Project> projects = em.createQuery(q).getResultList();
+
+        assertNotNull(projects);
+    }
+
 }

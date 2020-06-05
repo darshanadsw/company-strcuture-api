@@ -25,7 +25,7 @@ public class Employee {
     private Long salary;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee",orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Phone> phones = new ArrayList<>();
 
     @ManyToOne
@@ -34,13 +34,13 @@ public class Employee {
     @OneToOne(orphanRemoval = true)
     private Address address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "employee_project", joinColumns = @JoinColumn(name = "employee_id"),
     inverseJoinColumns = @JoinColumn(name = "project_id"))
     @Builder.Default
     private List<Project> projects = new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "manager", orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "manager", orphanRemoval = true,fetch = FetchType.LAZY)
     @Builder.Default
     private List<Employee> directs = new ArrayList<>();
 

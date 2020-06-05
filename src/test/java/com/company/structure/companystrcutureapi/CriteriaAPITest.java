@@ -422,6 +422,7 @@ public class CriteriaAPITest {
         List<Project> list = em.createQuery(c).getResultList();
 
         assertNotNull(list);
+
     }
 
 }

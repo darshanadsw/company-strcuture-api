@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmpDTO {
+
     private Employee employee;
     private Department department;
     private Integer id;
     private String name;
     private Long salary;
+    private String departmentName;
 
     public EmpDTO(Employee employee, Department department) {
         this.employee = employee;
@@ -34,4 +36,10 @@ public class EmpDTO {
         this.employee = manager;
     }
 
+    public EmpDTO(Integer id, String name, Long salary,String departmentName) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.departmentName = departmentName;
+    }
 }

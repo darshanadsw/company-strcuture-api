@@ -23,7 +23,7 @@ public class Department {
     private String name;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "department",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "department",orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Employee> employees = new ArrayList<>();
 
     public void addEmployee(Employee employee){

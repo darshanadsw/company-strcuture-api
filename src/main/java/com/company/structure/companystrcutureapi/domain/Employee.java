@@ -14,7 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@NamedQueries({
+    @NamedQuery(name = Employee.DELETE_QUERY, query = "DELETE FROM Employee e WHERE e.id =:id")
+})
 public class Employee {
+
+    public final static String DELETE_QUERY = "deleteEmp";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +33,7 @@ public class Employee {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee",orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Phone> phones = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
     @OneToOne(orphanRemoval = true)
@@ -44,7 +49,7 @@ public class Employee {
     @Builder.Default
     private List<Employee> directs = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee manager;
 
     public void addPhone(Phone phone){

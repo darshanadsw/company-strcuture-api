@@ -3,6 +3,7 @@ package com.company.structure.companystrcutureapi.service;
 import com.company.structure.companystrcutureapi.domain.Department;
 import com.company.structure.companystrcutureapi.domain.Employee;
 import com.company.structure.companystrcutureapi.domain.dto.EmpDTO;
+import com.company.structure.companystrcutureapi.exception.NoContentFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +52,8 @@ public class EmployeeService {
             department.get("name")))
             .where(cb.equal(emp.get("id"),cb.parameter(Integer.class,"id")));
 
-        return em.createQuery(c).setParameter("id",id).getSingleResult();
+        return em.createQuery(c).setParameter("id",id).getResultList().stream()
+                .findAny().orElseThrow(() -> new NoContentFoundException("No Employee found with ID : " + id));
 
     }
 

@@ -5,6 +5,13 @@
     <title>Employee</title>
 </head>
 <body>
+    <form th:object="${emp}" th:action="@{/employee}" method="post">
+        <h3 th:text="${emp.name}"></h3>
+        <h1 th:if="${#fields.hasErrors()}" th:text="Errors"/>
+        <ul>
+            <li th:each="v : ${#fields.errors()}" th:text="${v}"></li>
+        </ul>
+    </form>
 
 </body>
 </html>
